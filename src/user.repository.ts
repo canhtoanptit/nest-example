@@ -13,5 +13,10 @@ export class UserRepository {
   doNothing(pt: { x: number; y: number }) {
     console.log("The coordinate's x value is " + pt.x);
     console.log("The coordinate's y value is " + pt.y);
+    okela({ f: '100' });
   }
+}
+
+function okela(obj: { f: string; l?: string }) {
+  console.log(obj.l?.toUpperCase());
 }
