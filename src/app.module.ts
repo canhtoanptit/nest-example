@@ -7,9 +7,11 @@ import { NextFunction } from 'express';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
+import { ProductModule } from './product/product.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [UserModule],
+  imports: [UserModule, ProductModule, DatabaseModule],
   controllers: [AppController, UserController],
   providers: [AppService, UserRepository, UserService],
 })
