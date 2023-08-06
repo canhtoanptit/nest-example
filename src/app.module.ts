@@ -1,11 +1,27 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserRepository } from './user.repository';
+import { LoggerMiddleware } from './middleware/logger.middleware';
+import { NextFunction } from 'express';
+import { UserController } from './user/user.controller';
+import { UserService } from './user/user.service';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService, UserRepository],
+  imports: [UserModule],
+  controllers: [AppController, UserController],
+  providers: [AppService, UserRepository, UserService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes(AppController)
+      .apply((req: Request, res: Response, next: NextFunction) => {
+        console.log('other function');
+        next();
+      })
+      .forRoutes('*');
+  }
+}

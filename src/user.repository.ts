@@ -4,6 +4,10 @@ import { doWithLession } from './utils/lession';
 @Injectable()
 export class UserRepository {
   getUser(): string {
+    return 'ok';
+  }
+
+  getX() {
     const arr: number[] = [1, 2, 3];
     const ttn = arr.map((e) => 2 * e).length;
     console.log(ttn);
@@ -12,7 +16,6 @@ export class UserRepository {
       x: 2,
       y: 'hahah',
     });
-    return 'ok';
   }
 
   doNothing(pt: { x: number; y: number }) {
